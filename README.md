@@ -2,12 +2,7 @@
 
 ![cover](https://dev-to-uploads.s3.amazonaws.com/i/228847fx5bgi8lyp4zg4.jpg)
 
-#### I previously wrote about:
-
-- [Open Source JavaScript Data structures & Algorithms](https://dev.to/ashokdey_/my-first-open-source-project-to-cross-100-stars-232l)
-- [Highly Scalable Codebase Architecture](https://dev.to/ashokdey_/highly-scalable-codebase-architecture-4b)
-
-In this article, we'll get to know the preliminary steps you can take as a __Software Engineer__ for building a scalable system. 
+*__Let's see how we decreased loadtest time from 187s to 33s__*
 
 __Note:__ I'll be using __Node.js__ but don't skip reading, try to absorb the concept, especially if you're a beginner. 
 
@@ -15,12 +10,7 @@ __Note:__ I'll be using __Node.js__ but don't skip reading, try to absorb the co
 
 *__Build a server with only one `GET` request to return the highest Prime number between 0 - N__*
 
-### My Setup
-
-- I've used pure Node.js (Not `express.js`) for the creation of my server and routes as well, you are free to use `express.js`
-- You can use this idea with any language, so don't skip reading but you can skip the code/code repo.
-
-### Let's Start!
+### Let's Start
 
 I used this as one of my assignments for hiring (experienced) devs. The session used to be a pair-programming setup where the __candidate was free to use the Internet__ and tools of his/her choice. Considering the kind of my routine work, such assignments are really helpful.
 
@@ -157,12 +147,80 @@ INFO   99%      32035 ms
 INFO  100%      32035 ms (longest request)
 ```
 
-You can compare both the results above and can see SOE is a clear win here. I hope you understood the benefits of the following:
+You can compare both the results above and can see SOE is a clear winner here.
+
+### Can we improve it further?
+
+Yes, we can, we can add a __cache__, a plain Object in Javascript which can be used as a __HashMap__. 
+
+Using a cache will store the result for a given number N, if we get a request again for N, we can simply return it from the store instead of doing the calculations.
+
+#### Let's see the results
+
+- Brute force approach with __cache__ for `num=20234456`
+
+```bash
+INFO Target URL:          http://localhost:9090/prime?num=20234456
+INFO Max requests:        10
+INFO Concurrency level:   10
+INFO Agent:               none
+INFO Requests per second: 200
+INFO 
+INFO Completed requests:  10
+INFO Total errors:        0
+INFO Total time:          47.291413455000004 s
+INFO Requests per second: 0
+INFO Mean latency:        28059.6 ms
+INFO 
+INFO Percentage of the requests served within a certain time
+INFO   50%      46656 ms
+INFO   90%      46943 ms
+INFO   95%      46943 ms
+INFO   99%      46943 ms
+INFO  100%      46943 ms (longest request)
+
+```
+
+- Using SOE with modifications & __cache__ for `num=20234456`
+
+```bash
+
+INFO Target URL:          http://localhost:9090/prime-enhanced?num=20234456
+INFO Max requests:        10
+INFO Concurrency level:   10
+INFO Agent:               none
+INFO Requests per second: 200
+INFO 
+INFO Completed requests:  10
+INFO Total errors:        0
+INFO Total time:          33.047955697999996 s
+INFO Requests per second: 0
+INFO Mean latency:        19081.8 ms
+INFO 
+INFO Percentage of the requests served within a certain time
+INFO   50%      23192 ms
+INFO   90%      32657 ms
+INFO   95%      32657 ms
+INFO   99%      32657 ms
+INFO  100%      32657 ms (longest request)
+
+```
+
+### Time Analysis
+| Conditions | Time|
+----- | --------------- |  
+| With basic algo | 187.492294273 s
+| With SOE | 32.284605092999996 s
+| With Cache |47.291413455000004 s
+| With SOE & Cache | 33.047955697999996 s
+
+### Finally
+
+I hope you understood the benefits of the following:
 - Multithreading
 - Algorithms
+- Caching a.k.a Memoization
 
-Also, you can go ahead and add a **caching** layer using **Redis&& for making the system even faster.
-
-I hope you liked this short note, your suggestions are welcome. Hre is the code repo: [find-highest-prime](https://github.com/phantomlabs/highest-prime-number)
+I hope you liked this short note, your suggestions are welcome.
 
 You can find me on [Github](https://github.com/ashokdey), [LinkedIn](https://linkedin.com/in/ashokdey), and, [Twitter](https://twitter.com/ashokdey_)
