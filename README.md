@@ -1,8 +1,15 @@
-# Building a scalable service
+# Let's move towards Scalablity
 
 ![cover](https://dev-to-uploads.s3.amazonaws.com/i/228847fx5bgi8lyp4zg4.jpg)
 
-*__Let's see how we decreased loadtest time from 187s to 33s__*
+#### I previously wrote about:
+
+- [Open Source JavaScript Data structures & Algorithms](https://dev.to/ashokdey_/my-first-open-source-project-to-cross-100-stars-232l)
+- [Highly Scalable Codebase Architecture](https://dev.to/ashokdey_/highly-scalable-codebase-architecture-4b)
+
+In this article, we'll get to know the preliminary steps you can take as a __Software Engineer__ for building a scalable system. 
+
+*__Let's see how we can decrease loadtest time from 187s to 31s__*
 
 __Note:__ I'll be using __Node.js__ but don't skip reading, try to absorb the concept, especially if you're a beginner. 
 
@@ -10,7 +17,12 @@ __Note:__ I'll be using __Node.js__ but don't skip reading, try to absorb the co
 
 *__Build a server with only one `GET` request to return the highest Prime number between 0 - N__*
 
-### Let's Start
+### My Setup
+
+- I've used pure Node.js (Not `express.js`) for the creation of my server and routes as well, you are free to use `express.js`
+- You can use this idea with any language, so don't skip reading but you can skip the code/code repo.
+
+### Let's Start!
 
 I used this as one of my assignments for hiring (experienced) devs. The session used to be a pair-programming setup where the __candidate was free to use the Internet__ and tools of his/her choice. Considering the kind of my routine work, such assignments are really helpful.
 
@@ -92,11 +104,11 @@ You can notice after this using threads, the browser tab with a smaller number w
 
 For those who are not using Node.js, cluster mode means running your app in concurrent mode using the available threads in the CPU. 
 
-Now we have a bit of relaxation but what else we can do to make it even more performant because out single requests with large numbers are still lagging?
+Now we have a bit of relaxation but what else we can do to make it even more performant because our single requests with large numbers are still lagging?
 
 ### Algorithms at your rescue!
 
-I know this is a haunting word but it is really an essential tool you cannot ignore and in the end, after implementing a new algorithm you'll get to realize the worth of Algorithms.
+I know this is a haunting word but it is an essential tool you cannot ignore and in the end, after implementing a new algorithm you'll get to realize the worth of Algorithms.
 
 So for prime numbers, we have a __[Sieve of Eratosthenes
 ](https://www.geeksforgeeks.org/sieve-of-eratosthenes/)__We have to tweak it a bit so as to fit this in our use-case. You can find the complete code in the repo inside the class `Prime`. 
@@ -155,6 +167,8 @@ Yes, we can, we can add a __cache__, a plain Object in Javascript which can be u
 
 Using a cache will store the result for a given number N, if we get a request again for N, we can simply return it from the store instead of doing the calculations.
 
+__REDIS will do a much better job here__
+
 #### Let's see the results
 
 - Brute force approach with __cache__ for `num=20234456`
@@ -193,7 +207,7 @@ INFO Requests per second: 200
 INFO 
 INFO Completed requests:  10
 INFO Total errors:        0
-INFO Total time:          33.047955697999996 s
+INFO Total time:          31.047955697999996 s
 INFO Requests per second: 0
 INFO Mean latency:        19081.8 ms
 INFO 
@@ -210,9 +224,9 @@ INFO  100%      32657 ms (longest request)
 | Conditions | Time|
 ----- | --------------- |  
 | With basic algo | 187.492294273 s
-| With SOE | 32.284605092999996 s
 | With Cache |47.291413455000004 s
-| With SOE & Cache | 33.047955697999996 s
+| With SOE | 32.284605092999996 s
+| With SOE & Cache | 31.047955697999996 s
 
 ### Finally
 
@@ -221,6 +235,6 @@ I hope you understood the benefits of the following:
 - Algorithms
 - Caching a.k.a Memoization
 
-I hope you liked this short note, your suggestions are welcome.
+I hope you liked this short note, your suggestions are welcome. Hre is the code repo: [find-highest-prime](https://github.com/phantomlabs/highest-prime-number)
 
 You can find me on [Github](https://github.com/ashokdey), [LinkedIn](https://linkedin.com/in/ashokdey), and, [Twitter](https://twitter.com/ashokdey_)
