@@ -2,11 +2,6 @@
 
 ![cover](https://dev-to-uploads.s3.amazonaws.com/i/228847fx5bgi8lyp4zg4.jpg)
 
-#### I previously wrote about:
-
-- [Open Source JavaScript Data structures & Algorithms](https://dev.to/ashokdey_/my-first-open-source-project-to-cross-100-stars-232l)
-- [Highly Scalable Codebase Architecture](https://dev.to/ashokdey_/highly-scalable-codebase-architecture-4b)
-
 In this article, we'll get to know the preliminary steps you can take as a __Software Engineer__ for building a scalable system. 
 
 *__Let's see how we can decrease loadtest time from 187s to 31s__*
