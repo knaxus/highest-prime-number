@@ -233,3 +233,6 @@ I hope you understood the benefits of the following:
 I hope you liked this short note, your suggestions are welcome. Hre is the code repo: [find-highest-prime](https://github.com/phantomlabs/highest-prime-number)
 
 You can find me on [Github](https://github.com/ashokdey), [LinkedIn](https://linkedin.com/in/ashokdey), and, [Twitter](https://twitter.com/ashokdey_)
+
+
+<a rel="license" href="http://creativecommons.org/licenses/by/3.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/3.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>.
