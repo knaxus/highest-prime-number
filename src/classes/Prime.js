@@ -21,6 +21,7 @@ class PrimeNumber {
     let largestSoFar = parseInt(store.largestSoFar);
 
     //If the number is less than the largest number encountered so far, then check in the store
+    //Else compute using SOE
     if(num <= parseInt(largestSoFar)) {
       return store.checkStore(num);
     }
@@ -32,6 +33,7 @@ class PrimeNumber {
   }
 
   calculateGreatestPrimeInRangeSOE(num, primes, sieve, largestSoFar) {
+    //First largestSoFar indices of sieve are already computed. Start from largestSoFar + 1
     for (let k = largestSoFar + 1; k <= num; k += 1) {
       sieve[k] = true;
     }
