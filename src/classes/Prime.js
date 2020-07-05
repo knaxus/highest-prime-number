@@ -1,3 +1,4 @@
+const store = require('../store');
 class PrimeNumber {
   isPrime(n) {
     for (let i = 2; i <= Math.sqrt(n); i += 1) {
@@ -17,13 +18,19 @@ class PrimeNumber {
   }
 
   calculateGreatestPrimeInRangeEnhanced(num) {
-    const sieve = [];
-    const primes = [];
-    let k;
-    let l;
-    sieve[1] = false;
+    if(num <= store.largestSoFar) {
+      return store.checkStore(num);
+    }
+    else {
+      let sieve = store.sieve;
+      let primes = store.primes;
+      const largestSoFar = store.largestSoFar;
+      return this.calculateGreatestPrimeInRangeSieve(num, sieve, primes, largestSoFar);
+    }
+  }
 
-    for (let k = 2; k <= num; k += 1) {
+  calculateGreatestPrimeInRangeSieve(num, sieve, primes, largestSoFar) {
+    for (let k = largestSoFar + 1; k <= num; k += 1) {
       sieve[k] = true;
     }
 
@@ -31,7 +38,11 @@ class PrimeNumber {
       if (sieve[k] !== true) {
         continue;
       }
-      for (let l = k * k; l <= num; l += k) {
+      //Since Sieve is already calculated for largestSoFar, this is done to avoid recomputation.
+      //If K = 4 and largestSoFar = 25, then it's enough if we start computing from 28 instead of 16,
+      // the next multiple of 4 from 25. 
+      let l = Math.max(k * k, ((largestSoFar / k) + 1) * k);
+      for (; l <= num; l += k) {
         sieve[l] = false;
       }
     }
@@ -42,6 +53,10 @@ class PrimeNumber {
         this.push(key);
       }
     }, primes);
+    // cache sieve and primes in the store.
+    store.sieve = sieve;
+    store.primes = primes;
+    store.largestSoFar = num;
     return primes.length ? primes.pop() : -1;
   }
 }
