@@ -34,13 +34,13 @@ module.exports = {
         query = url.parse(req.url, true).query;
         // get the number N
         num = query.num;
-        // check the store
-        if (Store[num]) {
-          result = Store[num]
+        // check the cachedAnswers in store
+        if (Store.cachedAnswers[num]) {
+          result = Store.cachedAnswers[num]
         } else {
-          // if not in sotre, then calculate and store for next use
+          // if not in cachedAnswers, then calculate and store the result in cachedAnswers for next use
           result = PrimeNumber.calculateGreatestPrimeInRange(num);
-          Store[num] = result
+          Store.cachedAnswers[num] = result
         }
         // send response
         sendResponse(res, 200, { result });
@@ -49,15 +49,14 @@ module.exports = {
       case '/prime-enhanced':
         // get the query params
         query = url.parse(req.url, true).query;
-        result = PrimeNumber.calculateGreatestPrimeInRangeEnhanced(query.num)
         // get the number N
         num = query.num;
-        // check the store
-        if (Store[num]) {
-          result = Store[num]
+        // check the cachedAnswers
+        if (Store.cachedAnswers[num]) {
+          result = Store.cachedAnswers[num]
         } else {
-          result = PrimeNumber.calculateGreatestPrimeInRange(num);
-          Store[num] = result
+          result = PrimeNumber.calculateGreatestPrimeInRangeEnhanced(num);
+          Store.cachedAnswers[num] = result
         }
         // send response
         sendResponse(res, 200, { result });
