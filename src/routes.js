@@ -49,14 +49,13 @@ module.exports = {
       case '/prime-enhanced':
         // get the query params
         query = url.parse(req.url, true).query;
-        result = PrimeNumber.calculateGreatestPrimeInRangeEnhanced(query.num)
         // get the number N
         num = query.num;
         // check the cachedAnswers
         if (Store.cachedAnswers[num]) {
           result = Store.cachedAnswers[num]
         } else {
-          result = PrimeNumber.calculateGreatestPrimeInRange(num);
+          result = PrimeNumber.calculateGreatestPrimeInRangeEnhanced(num);
           Store.cachedAnswers[num] = result
         }
         // send response

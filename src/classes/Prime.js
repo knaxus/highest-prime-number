@@ -18,22 +18,23 @@ class PrimeNumber {
   }
 
   calculateGreatestPrimeInRangeEnhanced(num) {
-    if(num <= store.largestSoFar) {
+    let largestSoFar = parseInt(store.largestSoFar);
+
+    //If the number is less than the largest number encountered so far, then check in the store
+    if(num <= parseInt(largestSoFar)) {
       return store.checkStore(num);
     }
     else {
-      let sieve = store.sieve;
-      let primes = store.primes;
-      const largestSoFar = store.largestSoFar;
-      return this.calculateGreatestPrimeInRangeSieve(num, sieve, primes, largestSoFar);
+      let sieve = store.sieve.slice();
+      let primes = store.primes.slice();
+      return this.calculateGreatestPrimeInRangeSOE(num, primes, sieve, largestSoFar);
     }
   }
 
-  calculateGreatestPrimeInRangeSieve(num, sieve, primes, largestSoFar) {
+  calculateGreatestPrimeInRangeSOE(num, primes, sieve, largestSoFar) {
     for (let k = largestSoFar + 1; k <= num; k += 1) {
       sieve[k] = true;
     }
-
     for (let k = 2; k * k <= num; k += 1) {
       if (sieve[k] !== true) {
         continue;
@@ -41,23 +42,25 @@ class PrimeNumber {
       //Since Sieve is already calculated for largestSoFar, this is done to avoid recomputation.
       //If K = 4 and largestSoFar = 25, then it's enough if we start computing from 28 instead of 16,
       // the next multiple of 4 from 25. 
-      let l = Math.max(k * k, ((largestSoFar / k) + 1) * k);
+      let l = Math.max(k * k, (Math.floor(largestSoFar / k) + 1) * k);
       for (; l <= num; l += k) {
         sieve[l] = false;
       }
     }
 
     // dump the numbers in primes
-    sieve.forEach(function (value, key) {
-      if (value) {
-        this.push(key);
+    for(let k = largestSoFar + 1; k < sieve.length; k++) {
+      if(sieve[k]) {
+        primes.push(k);
       }
-    }, primes);
+    }
     // cache sieve and primes in the store.
-    store.sieve = sieve;
-    store.primes = primes;
-    store.largestSoFar = num;
-    return primes.length ? primes.pop() : -1;
+    if(store.largestSoFar < num) {
+      store.sieve = sieve;
+      store.primes = primes;
+      store.largestSoFar = num;
+    }
+    return primes.length ? primes[primes.length - 1] : -1;
   }
 }
 
