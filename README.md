@@ -230,7 +230,7 @@ I hope you understood the benefits of the following:
 - Algorithms
 - Caching a.k.a Memoization
 
-I hope you liked this short note, your suggestions are welcome. Hre is the code repo: [find-highest-prime](https://github.com/phantomlabs/highest-prime-number)
+I hope you liked this short note, your suggestions are welcome.
 
 You can find me on [Github](https://github.com/ashokdey), [LinkedIn](https://linkedin.com/in/ashokdey), and, [Twitter](https://twitter.com/ashokdey_)
 
